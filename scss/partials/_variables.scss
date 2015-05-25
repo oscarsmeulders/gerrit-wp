@@ -1,0 +1,34 @@
+// colors
+$main-text: #ffffff;		// main text
+$link: #ffff00;				// anchor tags
+$background: #05171e;		// body background color
+
+$color-1: #4e6361; // green dark
+$color-2: #242e30; // green darker
+$color-3: #aab5b7; // green light
+
+$color-header: $background;
+$color-menu: #1e2f35;
+$color-filters: #37454b;
+
+
+// fonts 
+$browser-context: 17; // Default size
+$primary-font: 'news-gothic-std', sans-serif;
+
+// z-index 
+
+$secondary-nav: 1;
+$content-zindex: 2;
+$header-zindex: 3;
+
+// heights
+$header-S: 50px;
+$header-M: 100px;
+
+$filter-S: 60px;
+$filter-M: 60px;
+
+
+// menu
+$menu-width: 300px;

@@ -1,0 +1,190 @@
+@import 'bourbon';										// bourbon.io/
+
+@import "compass/utilities/general/clearfix";
+@import "compass/css3";
+@import "compass/css3/selection";
+
+@import 'partials/variables';							// colors, fonts etc...
+@import 'partials/mixins';								// custom mixins
+@import 'partials/layout';								// responsive grid and media queries
+@import 'partials/navigation';							// navigation + header
+
+
+/* --------------------------------
+extends
+-------------------------------- */
+.navigation-sub {
+	position: fixed;
+	top: $header-S;
+	@include MQ(M) {
+		top: $header-M;
+	}
+	left: 0;
+	width: 100%;
+	height: $filter-M;
+	padding-left: 40px;
+
+	z-index: 9999;
+	background-color: $color-filters;
+	button {
+		background: transparent;
+		border: none;
+		color:#fff;
+		font-size: em(17);
+		line-height: $filter-M - 1;
+		text-transform: uppercase;
+		&:focus {
+			outline:0;
+		}
+		&.active {
+			color: $link;
+		}
+	}
+}
+
+
+/* --------------------------------
+home
+-------------------------------- */
+#home {
+	.panel {
+		position:absolute;
+		height:100%;
+		width: 50%;
+
+		// change the padding compared to the header
+		padding-top: $header-S;
+		@include MQ(M) {
+			padding-top: $header-M;
+		}
+		//
+		&.left {
+			left:0px;
+			//background-color:#ff0000;
+		}
+		&.right {
+			right:0px;
+			//background-color:#ff00ff;
+		}
+		div.button {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left:0;
+			right:0;
+			margin: auto;
+			top: $header-S;
+			@include MQ(M) {
+				top: $header-M;
+			}
+			line-height: 200px;
+			text-align: center;
+			text-transform: uppercase;
+			width: 200px;
+			height: 200px;
+			@include border-radius(100px);
+			@include selection(#fff, $background);
+			background-color: $background;
+			z-index: 999;
+		}
+		div.slideshow {
+			height:100%;
+			@include userSelect();
+			div {
+				@include userSelect();
+				height: 25%;
+				div.slide {
+					width: 100%;
+					height: 100%;
+					background-position: center center;
+					background-repeat: no-repeat;
+					background-size: cover;
+				}
+			}
+		}
+	}
+}
+
+/* --------------------------------
+detail - photography
+-------------------------------- */
+#detail-photography {
+	.cd-main-content {
+		// change the padding compared to the header
+		padding: $header-S 0 40px 0;
+		@include MQ(M) {
+			padding-top: $header-M;
+		}
+		//
+	}
+	div.cookietrail {
+		@extend .navigation-sub;
+	}
+	.gallery {
+		top:0px;
+		width: 100%;
+		height: 640px;
+		.gallery-cell {
+			width: 100%; /* full width */
+			background-color: red;
+			padding: 40px;
+			padding-top: ($filter-S + 40px);
+			@include MQ(M) {
+				padding-top: $filter-M + 40px;
+			}
+			img {
+				display: block;
+				margin: 0 auto;
+				height: 560px;
+				min-height: 560px;
+				max-height: 560px;
+			}
+
+		}
+	}
+}
+
+/* --------------------------------
+portfolio - photography
+-------------------------------- */
+#portfolio-photography {
+	.cd-main-content {
+		// change the padding compared to the header
+		padding: $header-S 40px 40px 40px;
+		@include MQ(M) {
+			padding-top: $header-M;
+		}
+	}
+	div.filters {
+		@extend .navigation-sub;
+	}
+	div.items {
+		top:0px;
+		width: 100%;
+		padding-top: $filter-S + 40px;
+		@include MQ(M) {
+			padding-top: $filter-M + 40px;
+		}
+		div.item {
+			@include opacity(0);
+			@include transition(opacity 0.2s ease-in);
+			&.loaded {
+				@include opacity(1);
+			}
+			div {
+				width: 100%;
+				height: 100%;
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-size: auto;
+				background-image: url('../img/ajax-loader.gif');
+				img {
+					border: 0px solid $background;
+				}
+			}
+		}
+	}
+}
+
+
+
