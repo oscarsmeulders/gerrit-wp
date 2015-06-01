@@ -13,26 +13,46 @@
 /* --------------------------------
 extends
 -------------------------------- */
-.navigation-sub {
+%navigation-sub {
 	position: fixed;
-	top: $header-S;
-	@include MQ(M) {
-		top: $header-M;
-	}
 	left: 0;
 	width: 100%;
-	height: $filter-M;
-	padding-left: 40px;
-
+	
+	height: $filter-S;
+	padding-left: $padding-S;
+	padding-right: $padding-S;
+	top: $header-S;
+	@include MQ(M) {
+		height: $filter-M;
+		padding-left: $padding-M;
+		padding-right: $padding-M;
+		top: $header-M;
+	}
+	@include MQ(L) {
+		height: $filter-L;
+		padding-left: $padding-L;
+		padding-right: $padding-L;
+		top: $header-L;
+	}
+	
+	
 	z-index: 9999;
 	background-color: $color-filters;
 	button {
 		background: transparent;
 		border: none;
-		color:#fff;
-		font-size: em(17);
-		line-height: $filter-M - 1;
 		text-transform: uppercase;
+		color: $main-text;
+		font-size: em(17);
+		
+		line-height: $filter-S - 1;
+		@include MQ(M) {
+			line-height: $filter-M - 1;
+		}
+		@include MQ(L) {
+			line-height: $filter-L - 1;
+		}
+		
 		&:focus {
 			outline:0;
 		}
@@ -41,7 +61,30 @@ extends
 		}
 	}
 }
-
+%paddings-no-sub {
+	// change the padding compared to the header
+	padding: $padding-S;
+	padding-top: $header-S + $padding-S;
+	@include MQ(M) {
+		padding: $padding-M;
+		padding-top: $header-M + $padding-M;
+	}
+	@include MQ(L) {
+		padding: $padding-L;
+		padding-top: $header-L + $padding-L;
+	}
+}
+%paddings-with-sub {
+	// change paddings content div
+	padding: ($header-S + $filter-S + $padding-S) $padding-S $padding-S $padding-S;
+	@include MQ(M) {
+		padding: ($header-M + $filter-M + $padding-M) $padding-M $padding-M $padding-M;
+	}
+	@include MQ(L) {
+		padding: ($header-L + $filter-L + $padding-L) $padding-L $padding-L $padding-L;
+	}
+	// end change paddings content div
+}
 
 /* --------------------------------
 home
@@ -51,41 +94,53 @@ home
 		position:absolute;
 		height:100%;
 		width: 50%;
-
-		// change the padding compared to the header
-		padding-top: $header-S;
-		@include MQ(M) {
-			padding-top: $header-M;
-		}
+		//
+		@extend %paddings-no-sub;
 		//
 		&.left {
 			left:0px;
-			//background-color:#ff0000;
+			padding-right: 0px;
 		}
 		&.right {
 			right:0px;
-			//background-color:#ff00ff;
+			padding-left: 0px;
+			div.button {
+				left:0px;
+				right: 20px;
+			}
 		}
 		div.button {
 			position: absolute;
 			top: 0;
 			bottom: 0;
-			left:0;
+			left: 20px;
 			right:0;
 			margin: auto;
-			top: $header-S;
-			@include MQ(M) {
-				top: $header-M;
-			}
-			line-height: 200px;
 			text-align: center;
 			text-transform: uppercase;
-			width: 200px;
-			height: 200px;
-			@include border-radius(100px);
-			@include selection(#fff, $background);
-			background-color: $background;
+			@include selection($color-home-button-txt, $color-home-button);
+			background-color: $color-home-button;
 			z-index: 999;
+			
+			top: $header-S;
+			line-height: 150px;
+			width: 150px;
+			height: 150px;
+			@include border-radius(75px);
+			@include MQ(M) {
+				top: $header-M;
+				line-height: 200px;
+				width: 200px;
+				height: 200px;
+				@include border-radius(100px);
+			}
+			@include MQ(L) {
+				top: $header-L;
+				line-height: 200px;
+				width: 200px;
+				height: 200px;
+				@include border-radius(100px);
+			}
 		}
 		div.slideshow {
 			height:100%;
@@ -110,15 +165,10 @@ detail - photography
 -------------------------------- */
 #detail-photography {
 	.cd-main-content {
-		// change the padding compared to the header
-		padding: $header-S 0 40px 0;
-		@include MQ(M) {
-			padding-top: $header-M;
-		}
-		//
+		@extend %paddings-with-sub;
 	}
 	div.cookietrail {
-		@extend .navigation-sub;
+		@extend %navigation-sub;
 	}
 	.gallery {
 		top:0px;
@@ -149,22 +199,15 @@ portfolio - photography
 -------------------------------- */
 #portfolio-photography {
 	.cd-main-content {
-		// change the padding compared to the header
-		padding: $header-S 40px 40px 40px;
-		@include MQ(M) {
-			padding-top: $header-M;
-		}
+		@extend %paddings-with-sub;
 	}
 	div.filters {
-		@extend .navigation-sub;
+		@extend %navigation-sub;
 	}
 	div.items {
 		top:0px;
 		width: 100%;
-		padding-top: $filter-S + 40px;
-		@include MQ(M) {
-			padding-top: $filter-M + 40px;
-		}
+		
 		div.item {
 			@include opacity(0);
 			@include transition(opacity 0.2s ease-in);
