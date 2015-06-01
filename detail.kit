@@ -5,6 +5,7 @@
 </head>
 
 <body id="detail-photography">
+
 	<header>
 		<a id="cd-logo" href="#0"><img src="img/" alt="Gerrit Schreurs"></a>
 		<nav id="cd-top-nav">
@@ -16,22 +17,28 @@
 			-->
 		</nav>
 		<a id="cd-menu-trigger" href="#0"><span class="cd-menu-text">Menu</span><span class="cd-menu-icon"></span></a>
-
-		<div class="cookietrail">
-			<div>photography  /  beauty  /</div>
-		</div>
 	</header>
-
 	<!-- cd-main-content -->
 	<main class="cd-main-content">
 		<div class="gallery">
-			<div class="gallery-cell" data-index="0" style="background-color: #791038">
+
+			<div class="gallery-cell" data-index="0">
+			<img alt=''
+				data-src-base='img-temp/responsive/'
+				data-src='	<480:x.jpg,
+                			<768:xx.jpg,
+							<960:xxx.jpg,
+							>960:xxxx.jpg' />
+			</div>
+
+			<div class="gallery-cell" data-index="1">
 				<img src="img-temp/enlarge/small.jpg" alt="" />
 			</div>
-			<div class="gallery-cell" data-index="1" style="background-color: #af4312">
+			<div class="gallery-cell" data-index="2">
 				<img src="img-temp/enlarge-1/small.jpg" alt="" />
 			</div>
 		</div>
+		<div class="content"></div>
 	</main>
 	<!-- cd-main-content -->
 

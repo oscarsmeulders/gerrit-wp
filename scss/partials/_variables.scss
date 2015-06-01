@@ -12,11 +12,11 @@ $color-menu: #1e2f35;
 $color-filters: #37454b;
 
 
-// fonts 
+// fonts
 $browser-context: 17; // Default size
 $primary-font: 'news-gothic-std', sans-serif;
 
-// z-index 
+// z-index
 
 $secondary-nav: 1;
 $content-zindex: 2;
@@ -32,3 +32,8 @@ $filter-M: 60px;
 
 // menu
 $menu-width: 300px;
+
+
+
+//$detail-gallery-height-large: (min-height 1000px) (orientation portrait);
+$detail-gallery-height-large: (min-height 1000px);

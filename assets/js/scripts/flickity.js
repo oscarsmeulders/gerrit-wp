@@ -6,7 +6,10 @@ jQuery(document).ready(function($){
 		percentPosition: false,
 		pageDots: false,
 		wrapAround: true,
-		imagesLoaded: true
+		imagesLoaded: true,
+		setGallerySize: false,
+		freeScroll: false,
+		draggable: false
 	});
 	////////////////////////////////////////////////
 
