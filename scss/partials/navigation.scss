@@ -115,19 +115,25 @@ header {
 	@include MQ(M) {
 		height: $header-M;
 	}
+	@include MQ(L) {
+		height: $header-L;
+	}
 }
 
-#cd-logo {
+#logo {
 	display: block;
 	float: left;
-	margin: 12px 0 0 20px;
+	margin: 15px 0 0 $padding-S;
 
 	img {
 		display: block;
 	}
 
 	@include MQ(M) {
-		margin: 22px 0 0 30px;
+		margin: 40px 0 0 $padding-M;
+	}
+	@include MQ(L) {
+		margin: 40px 0 0 $padding-L;
 	}
 }
 
@@ -152,16 +158,16 @@ header {
 	a {
 		display: inline-block;
 		padding: .5em;
-		color: #FFF;
+		color: $main-text;
 		text-transform: uppercase;
-		font-weight: 600;
+		//font-weight: 600;
 
 		&.current {
-			background-color: $color-2;
+			background-color: $color-menu-current;
 		}
 
 		.no-touch &:hover {
-			color: rgba(#FFF, .7);
+			color: $main-text;
 		}
 	}
 
@@ -181,7 +187,7 @@ header {
 	.cd-menu-text {
 		height: 100%;
 		text-transform: uppercase;
-		color: #FFF;
+		color: $main-text;
 		display: none;
 	}
 
@@ -192,7 +198,7 @@ header {
 		@include center; // mixin inside partials > _mixings.scss
 		width: 18px;
 		height: 2px;
-		background-color: #FFF;
+		background-color: $main-text;
 
 		/* these are the upper and lower lines in the menu menu */
 		&::before, &:after {
@@ -218,7 +224,7 @@ header {
 			background-color: rgba(#FFF, 0);
 
 			&::before, &::after {
-				background-color: rgba(#FFF, 1);
+				background-color: $main-text;
 			}
 
 			&::before {
@@ -289,15 +295,15 @@ header {
 		display: block;
 		line-height: 2em;
 		padding: 0 16px 0 32px;
-		color: $color-3;
+		color: $main-text;
 
 		&.current {
-			background-color: lighten($color-2, 10%);
+			background-color: $color-menu-current;
 			color: #FFF;
 		}
 
 		.no-touch &:hover {
-			color: #FFF;
+			color: $main-text;
 		}
 	}
 
@@ -324,7 +330,7 @@ header {
 #cd-lateral-nav .item-has-children > a {
 	position: relative;
 	text-transform: uppercase;
-	font-weight: 600;
+	//font-weight: 600;
 
 	/* this is the right arrow to show that the item has a submenu  */
 	&::after {
@@ -381,7 +387,7 @@ header {
 		}
 
 		.no-touch &:hover {
-			background-color: $color-1;
+			background-color: $main-text;
 
 			&.cd-twitter {
 				background-position: 0 -32px;
