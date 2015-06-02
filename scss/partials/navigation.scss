@@ -15,19 +15,19 @@ html * {
 }
 * {
 	font-family: $primary-font; // variables inside partials > _variables.scss
-	font-size: em(17);	
+	font-size: em(17);
 	color: $main-text;
-	
+
 }
 html, body {
-	
+
 	/* you need to set this to assign to the main element a min height of 100% */
 	height: 100%;
 }
 
 body {
 	font-family: $primary-font; // variables inside partials > _variables.scss
-	font-size: em(17);	
+	font-size: em(17);
 	color: $main-text;
 	background-color: $background;
 }
@@ -123,17 +123,18 @@ header {
 #logo {
 	display: block;
 	float: left;
+	@include userSelect();
+
 	margin: 15px 0 0 $padding-S;
-
-	img {
-		display: block;
-	}
-
 	@include MQ(M) {
 		margin: 40px 0 0 $padding-M;
 	}
 	@include MQ(L) {
 		margin: 40px 0 0 $padding-L;
+	}
+	img {
+		display: block;
+		@include userSelect();
 	}
 }
 
@@ -183,6 +184,7 @@ header {
 	height: 100%;
 	width: 50px;
 	background-color: $color-menu;
+	@include userSelect();
 
 	.cd-menu-text {
 		height: 100%;

@@ -26,7 +26,21 @@ jQuery(document).ready(function($){
 
 	// filter items on button click
 	$('.filters').on( 'click', 'button', function() {
+
 		var filterValue = $(this).attr('data-filter');
+		if ( $(this).attr('id') == 'filter-showall') {
+			if ( $(this).hasClass('hidden')) {
+				$(this).removeClass('hidden');
+			} else {
+				$(this).addClass('hidden');
+			}
+		} else {
+			$('#filter-showall').removeClass('hidden');
+		}
+
+		$('.filters button').removeClass('active');
+		$(this).addClass('active');
+
 		$con.isotope({ filter: filterValue });
 		$('html, body').animate({ scrollTop: 0 }, 'fast');
 		isotope();

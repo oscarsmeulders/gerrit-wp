@@ -1,9 +1,10 @@
 // colors
 $main-text: #05171e;		// main text
+
 $link: #05171e;				// anchor tags
+$link-active: lighten($link, 40);
+
 $background: #f0f0f0;		// body background color
-
-
 
 $color-header: #e4e5e5;
 $color-menu: #FFFFFF;
