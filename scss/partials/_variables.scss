@@ -7,19 +7,25 @@ $link-active: lighten($link, 40);
 $background: #f0f0f0;		// body background color
 
 $color-header: #e4e5e5;
+
 $color-menu: #FFFFFF;
-$color-menu-current: #05171e;
+$color-menu-txt: #05171e;
+$color-menu-txt-current: $link-active;
+
 $color-filters: #dbdcdd;
 
 $color-home-button: #FFFFFF;
 $color-home-button-txt: $main-text;
 
+$color-detail-button-bg: rgba($main-text, 0.1);
+$color-detail-button-bg-hover: rgba($main-text, 0.2);
+
 // fonts
 $browser-context: 17; // Default size
 $primary-font: 'news-gothic-std', sans-serif;
+// weights : 400 700
 
 // z-index
-
 $secondary-nav: 1;
 $content-zindex: 2;
 $header-zindex: 3;
@@ -37,6 +43,9 @@ $filter-S: 60px;
 $filter-M: 60px;
 $filter-L: 60px;
 
+$button-detail-S: 60px;
+$button-detail-M: 60px;
+$button-detail-L: 60px;
 
 // menu
 $menu-width: 300px;

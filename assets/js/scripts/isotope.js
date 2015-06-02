@@ -84,7 +84,16 @@ jQuery(document).ready(function($){
 			}
 		});
 	};
+	
+	
+
+	if (window.location.hash) {
+		var hash = document.URL.substr(document.URL.indexOf('#')+1);
+		console.log( 'hash filter : ' + hash );
+	}
+
 	isotope();
+	
 
 	$(window).on('debouncedresize', isotope);
 

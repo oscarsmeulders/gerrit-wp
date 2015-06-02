@@ -49,7 +49,6 @@ extends
 	background-color: $color-filters;
 	button {
 		@include transition(color 0.2s ease-in);
-		@include transition(opacity 0.2s ease-in);
 		@extend %cursor-pointer;
 		@include selection($color-home-button-txt, $color-home-button);
 		background: transparent;
@@ -65,10 +64,10 @@ extends
 			outline:0;
 		}
 		&:hover {
-			border-bottom: 1px solid $link-active;
+			//border-bottom: 1px solid $link-active;
 			color: $link-active;
 		}
-		&.active {
+		&.current, &.active {
 			color: $link-active;
 		}
 		&.hidden {
@@ -110,6 +109,17 @@ extends
 	}
 	@include MQ(L) {
 		padding: ($header-L + $filter-L) 0 0 0;
+	}
+	// end change paddings content div
+}
+%top-with-sub-no-padding {
+	// change paddings content div
+	top: ($header-S + $filter-S);
+	@include MQ(M) {
+		top: ($header-M + $filter-M);
+	}
+	@include MQ(L) {
+		top: ($header-L + $filter-L);
 	}
 	// end change paddings content div
 }
@@ -205,6 +215,7 @@ detail - photography
 		top:0px;
 		width: 100%;
 		height: 100%;
+		z-index: 4;
 		.flickity-viewport {
 			width: 100%; /* full width */
 			height: 100%;
@@ -228,6 +239,56 @@ detail - photography
 			}
 		}
 	}
+	.gallery-buttons {
+		position: absolute;
+		top: 0px;		
+		width: 100%;
+		height: 100%;
+		z-index: 5;
+
+	}
+	.gallery-button {
+		//z-index: 5;
+		@include transition(background-color 0.2s ease-in, color 0.2s ease-in);
+		@extend %cursor-pointer;
+		@include selection($color-home-button-txt, $color-home-button);
+		background-color: $color-detail-button-bg;
+		border: none;
+		text-transform: uppercase;
+		color: $main-text;
+		font-size: em(17);
+		
+		width: $button-detail-S;
+		height: $button-detail-S;
+		
+		margin: auto;
+		position: absolute;
+		@extend %top-with-sub-no-padding;
+		left: 0;
+		bottom: 0;
+		right: auto;
+  
+		&:focus {
+			outline:0;
+		}
+		&:hover {
+			background-color: $color-detail-button-bg-hover;
+		}
+		&.button-next {
+			left:auto;
+			right: 0px;
+		}
+		&.button-zoom {
+			left:auto;
+			right: 0px;
+			bottom: 120px;
+		}
+		&.button-info {
+			left:auto;
+			right: 0px;
+			bottom: 240px;
+		}
+	}
 	.content {
 
 	}
@@ -242,6 +303,12 @@ portfolio - photography
 	}
 	div.filters {
 		@extend %navigation-sub;
+		span {
+			@include selection($color-home-button-txt, $color-home-button);
+			text-transform: uppercase;
+			margin-right: 20px;
+			font-weight: 700;
+		}
 	}
 	div.items {
 		top:0px;

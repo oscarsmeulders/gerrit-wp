@@ -31,8 +31,11 @@
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
-
-
+@mixin vertical-align-absolute {
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
 // border radius
 @mixin border-radius($radius:.25em) {
   border-radius: $radius;
