@@ -30,7 +30,9 @@ jQuery(document).ready(function($){
 
 		var filterValue = $(this).attr('data-filter');
 		changeClasses( $(this) );
-
+		
+		window.location.hash = filterValue.substr(1);
+		
 		$con.isotope({ filter: filterValue });
 		$('html, body').animate({ scrollTop: 0 }, 'fast');
 		//isotope( );
@@ -44,10 +46,12 @@ jQuery(document).ready(function($){
 			if ( $(who).hasClass('hidden')) {
 				$(who).removeClass('hidden');
 			} else {
-				$(who).addClass('hidden');
+				$(who).addClass('hidden').delay(200).queue(function(next){
+					$(who).addClass('displayNone').dequeue();
+					});
 			}
 		} else {
-			$('#filter-showall').removeClass('hidden');
+			$('#filter-showall').removeClass('hidden displayNone');
 		}
 		$('.filters button').removeClass('active');
 		$(who).addClass('active');
@@ -86,6 +90,7 @@ jQuery(document).ready(function($){
 	isotope = function (hash) {
 		if (!hash) {
 			hash = '*';
+			//console.log ('NO hash found, isotope ALL');
 		}
 		$con.isotope({
 			itemSelector: '.item',
@@ -103,7 +108,7 @@ jQuery(document).ready(function($){
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	if (window.location.hash) { // if hash then continue
 		var hash = '.' + document.URL.substr(document.URL.indexOf('#')+1);	// hash check, add point
-		// console.log( 'hash filter : ' + hash );
+		console.log( 'hash filter : ' + hash );
 
 		$('.filters button').each(function() {		// check all filters for the samen filter as the hash
 			if ( $(this).attr('data-filter') == hash ) {
@@ -114,7 +119,7 @@ jQuery(document).ready(function($){
 		//console.log ('Filter found using ' + hash);
 
 	} else {
-		isotope('*');		// NO hash is found so show without filter
+		isotope();		// NO hash is found so show without filter
 		//console.log ('NO filter found using *');
 	}
 

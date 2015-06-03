@@ -1,6 +1,7 @@
 jQuery(document).ready(function($){
 	var $lateral_menu_trigger = $('#cd-menu-trigger'),
 		$content_wrapper = $('.cd-main-content'),
+		$content_wrapper_fixed = $('.cd-main-content-fixed'),
 		$navigation = $('header');
 
 	//open-close lateral menu clicking on the menu icon
@@ -13,6 +14,7 @@ jQuery(document).ready(function($){
 			// firefox transitions break when parent overflow is changed, so we need to wait for the end of the trasition to give the body an overflow hidden
 			$('body').toggleClass('overflow-hidden');
 		});
+		$content_wrapper_fixed.toggleClass('lateral-menu-is-open')
 		$('#cd-lateral-nav').toggleClass('lateral-menu-is-open');
 
 		//check if transitions are not supported - i.e. in IE9
@@ -29,6 +31,24 @@ jQuery(document).ready(function($){
 			$content_wrapper.removeClass('lateral-menu-is-open').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
 				$('body').removeClass('overflow-hidden');
 			});
+			$content_wrapper_fixed.removeClass('lateral-menu-is-open')
+			$('#cd-lateral-nav').removeClass('lateral-menu-is-open');
+			//check if transitions are not supported
+			if($('html').hasClass('no-csstransitions')) {
+				$('body').removeClass('overflow-hidden');
+			}
+
+		}
+	});
+	//close lateral menu clicking outside the menu itself
+	$content_wrapper_fixed.on('click', function(event){
+		if( !$(event.target).is('#cd-menu-trigger, #cd-menu-trigger span') ) {
+			$lateral_menu_trigger.removeClass('is-clicked');
+			$navigation.removeClass('lateral-menu-is-open');
+			$content_wrapper.removeClass('lateral-menu-is-open').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+				$('body').removeClass('overflow-hidden');
+			});
+			$content_wrapper_fixed.removeClass('lateral-menu-is-open')
 			$('#cd-lateral-nav').removeClass('lateral-menu-is-open');
 			//check if transitions are not supported
 			if($('html').hasClass('no-csstransitions')) {

@@ -47,34 +47,6 @@ extends
 
 	z-index: 9999;
 	background-color: $color-filters;
-	button {
-		@include transition(color 0.2s ease-in);
-		@extend %cursor-pointer;
-		@include selection($color-home-button-txt, $color-home-button);
-		background: transparent;
-		border: none;
-		text-transform: uppercase;
-		color: $main-text;
-		font-size: em(17);
-		padding: 0;
-		margin: 0;
-		margin-right: 20px;
-
-		&:focus {
-			outline:0;
-		}
-		&:hover {
-			//border-bottom: 1px solid $link-active;
-			color: $link-active;
-		}
-		&.current, &.active {
-			color: $link-active;
-		}
-		&.hidden {
-			@include opacity(0);
-			display: none;
-		}
-	}
 }
 %paddings-no-sub {
 	// change the padding compared to the header
@@ -124,6 +96,144 @@ extends
 	// end change paddings content div
 }
 
+
+/* --------------------------------
+containers + typografie + style
+-------------------------------- */
+
+html * {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+*, *:after, *:before {
+	@include box-sizing(border-box);
+	@include selection($main-text, $background);
+}
+* {
+	font-family: $primary-font; // variables inside partials > _variables.scss
+	font-size: em(17);
+	color: $main-text;
+
+}
+html, body {
+
+	/* you need to set this to assign to the main element a min height of 100% */
+	height: 100%;
+}
+
+body {
+	font-family: $primary-font; // variables inside partials > _variables.scss
+	font-size: em(17);
+	line-height: em(23);
+	color: $main-text;
+	background-color: $background;
+}
+
+a {
+	color: $link;
+	text-decoration: none;
+}
+p {
+	margin-bottom: 20px;
+}
+/* heading */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+	font-size: em(21);
+	line-height: em(23);
+	font-weight: 700;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+}
+h1.light, .h1.light {
+	font-weight: 400;
+}
+h2, .h2 {
+	font-size: em(21);
+	font-weight: 400;
+}
+h3, .h3 {
+	font-size: em(19);
+	line-height: em(21);
+}
+h4, .h4 {
+	font-size: em(19);
+	line-height: em(21);
+	font-weight: 400;
+}
+h5, .h5,
+h6, .h6 {
+	font-size: em(17);
+	line-height: em(21);
+	font-weight: 700;
+}
+
+h6, .h6 {
+	font-weight: 400;
+}
+/* end headings */
+
+
+.cd-wrapper {
+	ul, ol {
+		list-style: disc;
+		list-style-position: outside;
+		margin-left: 20px;
+		li {
+			margin-bottom: 10px;
+		}
+	}	
+}
+
+hr {
+	display: block; 
+	height: 1px;
+    border: 0;
+    border-top: 1px solid $main-text;
+    margin: 1em 0;
+    padding: 0;
+}
+strong {
+	font-weight: 700;
+}
+/* --------------------------------
+containers
+-------------------------------- */
+.cd-wrapper {
+	.cd-container {
+		@include column(1, left);
+		
+		padding-left: $padding-S;
+		padding-right: $padding-S;
+		@include MQ(M) {
+			padding-left: $padding-M;
+			padding-right: $padding-M;
+		}
+		@include MQ(L) {
+			padding-left: $padding-L;
+			padding-right: $padding-L;
+		}
+		&.half {
+			@include MQ(L) {
+				@include column(0.5, left);
+				&:first-child {
+					padding-left: $padding-L;
+					padding-right: $padding-L / 2;
+				}
+				&:last-child {
+					padding-left: $padding-L / 2;
+					padding-right: $padding-L;
+				}
+			}
+		}
+	}
+	
+}
+
+/* --------------------------------
+end containers + typografie
+-------------------------------- */
 /* --------------------------------
 home
 -------------------------------- */
@@ -154,6 +264,7 @@ home
 			left: 20px;
 			right:0;
 			margin: auto;
+			font-size: em(14);
 			text-align: center;
 			text-transform: uppercase;
 			@include selection($color-home-button-txt, $color-home-button);
@@ -161,11 +272,12 @@ home
 			z-index: 999;
 
 			top: $header-S;
-			line-height: 150px;
-			width: 150px;
-			height: 150px;
-			@include border-radius(75px);
+			line-height: 100px;
+			width: 100px;
+			height: 100px;
+			@include border-radius(50px);
 			@include MQ(M) {
+				font-size: em(17);
 				top: $header-M;
 				line-height: 200px;
 				width: 200px;
@@ -173,6 +285,7 @@ home
 				@include border-radius(100px);
 			}
 			@include MQ(L) {
+				font-size: em(17);
 				top: $header-L;
 				line-height: 200px;
 				width: 200px;
@@ -198,6 +311,60 @@ home
 	}
 }
 
+/* --------------------------------
+content
+-------------------------------- */
+
+#content {
+	.cd-main-content, .cd-main-content-fixed {
+		//@extend %paddings-with-sub;
+		//@extend %paddings-with-sub-no-padding;
+		
+		height:100%;
+		width: 50%;
+	}
+	.cd-main-content-fixed {
+		position: fixed;
+		left:auto;
+		right:0;
+		top:0;
+		bottom: 0;
+	}
+	div.title {
+		@extend %navigation-sub;
+		@include userSelect();
+	} 
+	&.divide-two .panel {
+		height:100%;
+		width: 100%;
+		@include selection($main-text, $background);
+		&.text {
+			padding-top: ($header-S + $filter-S + $padding-S);
+			@include MQ(M) {
+				padding-top: ($header-M + $filter-M + $padding-M);
+			}
+			@include MQ(L) {
+				padding-top: ($header-L + $filter-L + $padding-L);
+			}
+		}
+		&.image {
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+	}
+	&.right {
+		.cd-main-content-fixed {
+			position: fixed;
+			left:0;
+			right:auto;
+			top:0;
+			bottom: 0;
+		}
+		.cd-main-content {
+float:right		}
+	}
+}
 /* --------------------------------
 detail - photography
 -------------------------------- */
@@ -303,6 +470,36 @@ portfolio - photography
 	}
 	div.filters {
 		@extend %navigation-sub;
+		button {
+			@include transition(color 0.2s ease-in, opacity 0.2s ease-in);
+			@extend %cursor-pointer;
+			@include selection($color-home-button-txt, $color-home-button);
+			background: transparent;
+			border: none;
+			text-transform: uppercase;
+			color: $main-text;
+			font-size: em(17);
+			padding: 0;
+			margin: 0;
+			margin-right: 20px;
+	
+			&:focus {
+				outline:0;
+			}
+			&:hover {
+				//border-bottom: 1px solid $link-active;
+				color: $link-active;
+			}
+			&.current, &.active {
+				color: $link-active;
+			}
+			&.hidden {
+				@include opacity(0);
+			}
+			&.displayNone {
+				display: none;
+			}
+		}
 		span {
 			@include selection($color-home-button-txt, $color-home-button);
 			text-transform: uppercase;
