@@ -23,30 +23,36 @@ jQuery(document).ready(function($){
 		failure_limit: Math.max($imgs.length - 1, 0),
 		event: 'lazylazy'
 	});
-
+	//
+	////////////////////////////////////////////////////////////////////////////////////
 	// filter items on button click
 	$('.filters').on( 'click', 'button', function() {
 
 		var filterValue = $(this).attr('data-filter');
-		if ( $(this).attr('id') == 'filter-showall') {
-			if ( $(this).hasClass('hidden')) {
-				$(this).removeClass('hidden');
+		changeClasses( $(this) );
+
+		$con.isotope({ filter: filterValue });
+		$('html, body').animate({ scrollTop: 0 }, 'fast');
+		//isotope( );
+	});
+	//
+	////////////////////////////////////////////////////////////////////////////////////
+	// Change classes of filter buttons
+	//
+	changeClasses = function (who) {
+		if ( $( who ).attr('id') == 'filter-showall') {
+			if ( $(who).hasClass('hidden')) {
+				$(who).removeClass('hidden');
 			} else {
-				$(this).addClass('hidden');
+				$(who).addClass('hidden');
 			}
 		} else {
 			$('#filter-showall').removeClass('hidden');
 		}
-
 		$('.filters button').removeClass('active');
-		$(this).addClass('active');
-
-		$con.isotope({ filter: filterValue });
-		$('html, body').animate({ scrollTop: 0 }, 'fast');
-		isotope();
-	});
-
-
+		$(who).addClass('active');
+	}
+	////////////////////////////////////////////////////////////////////////////////////
 	var colWidth = function () {
 		var w = $con.width(),
 			columnNum = 1,
@@ -76,24 +82,42 @@ jQuery(document).ready(function($){
 		});
 		return columnWidth;
 	};
-	isotope = function () {
+
+	isotope = function (hash) {
+		if (!hash) {
+			hash = '*';
+		}
 		$con.isotope({
 			itemSelector: '.item',
 			masonry: {
 				columnWidth: colWidth()
-			}
+			},
+			filter: hash
 		});
 	};
-	
-	
 
-	if (window.location.hash) {
-		var hash = document.URL.substr(document.URL.indexOf('#')+1);
-		console.log( 'hash filter : ' + hash );
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// check after loading for a hash,
+	// if hash then filter isotope and set the filterNavigation to the right button, also show the 'Show all' button
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if (window.location.hash) { // if hash then continue
+		var hash = '.' + document.URL.substr(document.URL.indexOf('#')+1);	// hash check, add point
+		// console.log( 'hash filter : ' + hash );
+
+		$('.filters button').each(function() {		// check all filters for the samen filter as the hash
+			if ( $(this).attr('data-filter') == hash ) {
+				changeClasses( $(this) );	// change classes of the filter buttons
+			}
+		});
+		isotope( hash );	// NOW isotope with the hash
+		//console.log ('Filter found using ' + hash);
+
+	} else {
+		isotope('*');		// NO hash is found so show without filter
+		//console.log ('NO filter found using *');
 	}
 
-	isotope();
-	
 
 	$(window).on('debouncedresize', isotope);
 
@@ -103,7 +127,7 @@ jQuery(document).ready(function($){
 	});
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// fade random all items in...
+	// fade in random all items
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	function Shuffle(o) {
 		for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
@@ -116,11 +140,14 @@ jQuery(document).ready(function($){
 	Shuffle(portfolioFades);
 
 	for (var i=0;i < portfolioFades.length;i++) {
-		var $dly = i*150;
+		var $dly = i*50;
 		portfolioFades[i].delay($dly).queue(function(next){
 			$(this).addClass('loaded').dequeue();
 		});
 	}
+
+
+
 
 
 });
