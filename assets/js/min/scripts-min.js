@@ -1,2 +1,425 @@
-jQuery(document).ready(function($){function e(){var e=Math.floor(10*Math.random(5)*1e3);return e}$(".one").cycle({timeout:e()}),$(".two").cycle({timeout:e()}),$(".three").cycle({timeout:e()}),$(".four").cycle({timeout:e()})}),jQuery(document).ready(function($){function e(e,n){e.filter(function(){var e=this.getBoundingClientRect();return e.top>=0&&e.top<=window.innerHeight}).trigger(n)}function n(e){for(var n,t,i=e.length;i;n=parseInt(Math.random()*i),t=e[--i],e[i]=e[n],e[n]=t);return e}var t=$(window),i=$("img.ll"),o=$(".items");t.on("scroll",function(){e(i,"lazylazy")}),i.lazyload({effect:"fadeIn",failure_limit:Math.max(i.length-1,0),event:"lazylazy"}),$(".filters").on("click","button",function(){var e=$(this).attr("data-filter");changeClasses($(this)),window.location.hash=e.substr(1),o.isotope({filter:e}),$("html, body").animate({scrollTop:0},"fast")}),changeClasses=function(e){"filter-showall"==$(e).attr("id")?$(e).hasClass("hidden")?$(e).removeClass("hidden"):$(e).addClass("hidden").delay(200).queue(function(n){$(e).addClass("displayNone").dequeue()}):$("#filter-showall").removeClass("hidden displayNone"),$(".filters button").removeClass("active"),$(e).addClass("active")};var a=function(){var e=o.width(),n=1,t=0;return e>1500?n=6:e>1200?n=5:e>900?n=4:e>600?n=3:e>300&&(n=2),t=Math.floor(e/n),o.find(".item").each(function(){var e=$(this),n=e.attr("class").match(/item-w(\d)/),i=e.attr("class").match(/item-h(\d)/),o=n?t*n[1]:t,a=i?t*i[1]*.66666:.66666*t;e.css({width:o,height:a})}),t};if(isotope=function(e){e||(e="*"),o.isotope({itemSelector:".item",masonry:{columnWidth:a()},filter:e})},window.location.hash){var s="."+document.URL.substr(document.URL.indexOf("#")+1);console.log("hash filter : "+s),$(".filters button").each(function(){$(this).attr("data-filter")==s&&changeClasses($(this))}),isotope(s)}else isotope();$(window).on("debouncedresize",isotope),o.isotope("on","layoutComplete",function(){e(i,"lazylazy")});var l=[];o.find(".item").each(function(){l.push($(this))}),n(l);for(var r=0;r<l.length;r++){var c=50*r;l[r].delay(c).queue(function(e){$(this).addClass("loaded").dequeue()})}}),jQuery(document).ready(function($){var e=$("#cd-menu-trigger"),n=$(".cd-main-content"),t=$(".cd-main-content-fixed"),i=$("header");e.on("click",function(o){o.preventDefault(),e.toggleClass("is-clicked"),i.toggleClass("lateral-menu-is-open"),n.toggleClass("lateral-menu-is-open").one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",function(){$("body").toggleClass("overflow-hidden")}),t.toggleClass("lateral-menu-is-open"),$("#cd-lateral-nav").toggleClass("lateral-menu-is-open"),$("html").hasClass("no-csstransitions")&&$("body").toggleClass("overflow-hidden")}),n.on("click",function(o){$(o.target).is("#cd-menu-trigger, #cd-menu-trigger span")||(e.removeClass("is-clicked"),i.removeClass("lateral-menu-is-open"),n.removeClass("lateral-menu-is-open").one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",function(){$("body").removeClass("overflow-hidden")}),t.removeClass("lateral-menu-is-open"),$("#cd-lateral-nav").removeClass("lateral-menu-is-open"),$("html").hasClass("no-csstransitions")&&$("body").removeClass("overflow-hidden"))}),t.on("click",function(o){$(o.target).is("#cd-menu-trigger, #cd-menu-trigger span")||(e.removeClass("is-clicked"),i.removeClass("lateral-menu-is-open"),n.removeClass("lateral-menu-is-open").one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",function(){$("body").removeClass("overflow-hidden")}),t.removeClass("lateral-menu-is-open"),$("#cd-lateral-nav").removeClass("lateral-menu-is-open"),$("html").hasClass("no-csstransitions")&&$("body").removeClass("overflow-hidden"))}),$(".item-has-children").children("a").on("click",function(e){e.preventDefault(),$(this).toggleClass("submenu-open").next(".sub-menu").slideToggle(200).end().parent(".item-has-children").siblings(".item-has-children").children("a").removeClass("submenu-open").next(".sub-menu").slideUp(200)})}),jQuery(document).ready(function($){function e(){var e=new PhotoSwipe(n,PhotoSwipeUI_Default,t,i),o,a=!1,s=!0,l;e.listen("beforeResize",function(){o=e.viewportSize.x*window.devicePixelRatio,a&&1e3>o?(a=!1,l=!0):!a&&o>=1e3&&(a=!0,l=!0),l&&!s&&e.invalidateCurrItems(),s&&(s=!1),l=!1}),e.listen("gettingData",function(e,n){a?(n.src=n.originalImage.src,n.w=n.originalImage.w,n.h=n.originalImage.h):(n.src=n.mediumImage.src,n.w=n.mediumImage.w,n.h=n.mediumImage.h)}),console.log("pswpStartCustom"),e.init()}var n=document.querySelectorAll(".pswp")[0],t=[{mediumImage:{src:"img-temp/enlarge/medium.jpg",w:1500,h:979},originalImage:{src:"img-temp/enlarge/large.jpg",w:3e3,h:1957}},{mediumImage:{src:"img-temp/enlarge-1/medium.jpg",w:1500,h:998},originalImage:{src:"img-temp/enlarge-1/large.jpg",w:3e3,h:1995}}],i={index:0,captionEl:!1,arrowEl:!1,shareEl:!1,fullscreenEl:!0,counterEl:!1,zoomEl:!0,tapToClose:!1};$(".gallery-cell").on("click","img",function(){var n=$(this).parent().attr("data-index");e()})}),jQuery(document).ready(function($){var e=$(".gallery").flickity({cellAlign:"center",percentPosition:!1,pageDots:!1,wrapAround:!0,imagesLoaded:!0,setGallerySize:!1,freeScroll:!1,draggable:!1,prevNextButtons:!1,pageDots:!1});e.flickity().focus(),$(".gallery-buttons .button-previous").on("click",function(){e.flickity("previous")}),$(".gallery-buttons .button-next").on("click",function(){e.flickity("next")})}),jQuery(document).ready(function($){});
-//# sourceMappingURL=./scripts-min.js.map
+jQuery(document).ready(function($){
+
+	function calculateTimeout() {
+		var timeout = Math.floor((Math.random(5)*10) * 1000);
+		//console.log (timeout);
+		return timeout;
+	}
+	$('.one').cycle({
+		timeout: calculateTimeout()
+	});
+	$('.two').cycle({
+		timeout: calculateTimeout()
+	});
+	$('.three').cycle({
+		timeout: calculateTimeout()
+	});
+	$('.four').cycle({
+		timeout: calculateTimeout()
+	});
+
+
+});
+
+jQuery(document).ready(function($){
+	var $lateral_menu_trigger = $('#cd-menu-trigger'),
+		$content_wrapper = $('.cd-main-content'),
+		$content_wrapper_fixed = $('.cd-main-content-fixed'),
+		$navigation = $('header');
+
+	//open-close lateral menu clicking on the menu icon
+	$lateral_menu_trigger.on('click', function(event){
+		event.preventDefault();
+
+		$lateral_menu_trigger.toggleClass('is-clicked');
+		$navigation.toggleClass('lateral-menu-is-open');
+		$content_wrapper.toggleClass('lateral-menu-is-open').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+			// firefox transitions break when parent overflow is changed, so we need to wait for the end of the trasition to give the body an overflow hidden
+			$('body').toggleClass('overflow-hidden');
+		});
+		$content_wrapper_fixed.toggleClass('lateral-menu-is-open')
+		$('#cd-lateral-nav').toggleClass('lateral-menu-is-open');
+
+		//check if transitions are not supported - i.e. in IE9
+		if($('html').hasClass('no-csstransitions')) {
+			$('body').toggleClass('overflow-hidden');
+		}
+	});
+
+	//close lateral menu clicking outside the menu itself
+	$content_wrapper.on('click', function(event){
+		if( !$(event.target).is('#cd-menu-trigger, #cd-menu-trigger span') ) {
+			$lateral_menu_trigger.removeClass('is-clicked');
+			$navigation.removeClass('lateral-menu-is-open');
+			$content_wrapper.removeClass('lateral-menu-is-open').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+				$('body').removeClass('overflow-hidden');
+			});
+			$content_wrapper_fixed.removeClass('lateral-menu-is-open')
+			$('#cd-lateral-nav').removeClass('lateral-menu-is-open');
+			//check if transitions are not supported
+			if($('html').hasClass('no-csstransitions')) {
+				$('body').removeClass('overflow-hidden');
+			}
+
+		}
+	});
+	//close lateral menu clicking outside the menu itself
+	$content_wrapper_fixed.on('click', function(event){
+		if( !$(event.target).is('#cd-menu-trigger, #cd-menu-trigger span') ) {
+			$lateral_menu_trigger.removeClass('is-clicked');
+			$navigation.removeClass('lateral-menu-is-open');
+			$content_wrapper.removeClass('lateral-menu-is-open').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+				$('body').removeClass('overflow-hidden');
+			});
+			$content_wrapper_fixed.removeClass('lateral-menu-is-open')
+			$('#cd-lateral-nav').removeClass('lateral-menu-is-open');
+			//check if transitions are not supported
+			if($('html').hasClass('no-csstransitions')) {
+				$('body').removeClass('overflow-hidden');
+			}
+
+		}
+	});
+
+	//open (or close) submenu items in the lateral menu. Close all the other open submenu items.
+	$('.item-has-children').children('a').on('click', function(event){
+		event.preventDefault();
+		$(this).toggleClass('submenu-open').next('.sub-menu').slideToggle(200).end().parent('.item-has-children').siblings('.item-has-children').children('a').removeClass('submenu-open').next('.sub-menu').slideUp(200);
+	});
+
+});
+
+jQuery(document).ready(function($){
+
+var pswpElement = document.querySelectorAll('.pswp')[0];
+
+// build items array
+var items = [
+	{
+		mediumImage: {
+			src: 'img-temp/enlarge/medium.jpg',
+			w: 1500,
+			h: 979
+		},
+		originalImage: {
+			src: 'img-temp/enlarge/large.jpg',
+			w: 3000,
+			h: 1957
+		}
+	},
+	{
+		mediumImage: {
+			src: 'img-temp/enlarge-1/medium.jpg',
+			w: 1500,
+			h: 998
+		},
+		originalImage: {
+			src: 'img-temp/enlarge-1/large.jpg',
+			w: 3000,
+			h: 1995
+		}
+	}
+
+];
+
+// define options (if needed)
+var options = {
+	// optionName: 'option value'
+	// for example:
+	index: 0, // start at first slide
+	captionEl: false,
+	arrowEl: false,
+	shareEl: false,
+	fullscreenEl: true,
+	counterEl: false,
+	zoomEl: true,
+	tapToClose: false, // Tap on sliding area should close gallery
+};
+
+
+
+function pswpStartCustom() {
+	// initialise as usual
+	var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+
+	// create variable that will store real size of viewport
+	var realViewportWidth,
+		useLargeImages = false,
+		firstResize = true,
+		imageSrcWillChange;
+
+	// beforeResize event fires each time size of gallery viewport updates
+	gallery.listen('beforeResize', function() {
+	// gallery.viewportSize.x - width of PhotoSwipe viewport
+	// gallery.viewportSize.y - height of PhotoSwipe viewport
+	// window.devicePixelRatio - ratio between physical pixels and device independent pixels (Number)
+	// 1 (regular display), 2 (@2x, retina) ...
+
+
+		// calculate real pixels when size changes
+		realViewportWidth = gallery.viewportSize.x * window.devicePixelRatio;
+
+		// Code below is needed if you want image to switch dynamically on window.resize
+
+		// Find out if current images need to be changed
+		if(useLargeImages && realViewportWidth < 1000) {
+			useLargeImages = false;
+			imageSrcWillChange = true;
+		} else if(!useLargeImages && realViewportWidth >= 1000) {
+			useLargeImages = true;
+			imageSrcWillChange = true;
+		}
+
+		// Invalidate items only when source is changed and when it's not the first update
+		if(imageSrcWillChange && !firstResize) {
+			// invalidateCurrItems sets a flag on slides that are in DOM,
+			// which will force update of content (image) on window.resize.
+			gallery.invalidateCurrItems();
+		}
+
+		if(firstResize) {
+			firstResize = false;
+		}
+
+	    imageSrcWillChange = false;
+
+	});
+
+
+	// gettingData event fires each time PhotoSwipe retrieves image source & size
+	gallery.listen('gettingData', function(index, item) {
+
+		// Set image source & size based on real viewport width
+		if( useLargeImages ) {
+			item.src = item.originalImage.src;
+			item.w = item.originalImage.w;
+			item.h = item.originalImage.h;
+		} else {
+			item.src = item.mediumImage.src;
+			item.w = item.mediumImage.w;
+			item.h = item.mediumImage.h;
+		}
+
+		// It doesn't really matter what will you do here,
+		// as long as item.src, item.w and item.h have valid values.
+		//
+		// Just avoid http requests in this listener, as it fires quite often
+
+	});
+
+
+	console.log('pswpStartCustom');
+	// Note that init() method is called after gettingData event is bound
+	gallery.init();
+
+}
+
+
+$('.gallery-cell').on( 'click', 'img', function() {
+	var count = $(this).parent().attr('data-index');
+	// options.index = count;
+	pswpStartCustom();
+});
+
+
+});
+
+jQuery(document).ready(function($){
+
+	////////////////////////////////////////////////
+	var $gallery = $('.gallery').flickity({
+		cellAlign: 'center',
+		percentPosition: false,
+		pageDots: false,
+		wrapAround: true,
+		imagesLoaded: true,
+		setGallerySize: false,
+		freeScroll: false,
+		draggable: false,
+		prevNextButtons: false,
+		pageDots: false
+	});
+	$gallery.flickity().focus();
+
+	////////////////////////////////////////////////
+	// http://flickity.metafizzy.co/extras.html
+	////////////////////////////////////////////////
+	// previous
+	$('.gallery-buttons .button-previous').on( 'click', function() {
+		$gallery.flickity('previous');
+	});
+	// next
+	$('.gallery-buttons .button-next').on( 'click', function() {
+		$gallery.flickity('next');
+	});
+	////////////////////////////////////////////////
+
+
+});
+
+jQuery(document).ready(function($){
+
+	////////////////////////////////////////////////////////////////////////////////////
+	///// isotope stuff
+
+	var $win = $(window),
+		$imgs = $('img.ll'),
+		$con = $('.items');
+
+	function loadVisible($els, trigger) {
+		$els.filter(function () {
+			var rect = this.getBoundingClientRect();
+			return rect.top >= 0 && rect.top <= window.innerHeight;
+		}).trigger(trigger);
+	}
+
+	$win.on('scroll', function () {
+		loadVisible($imgs, 'lazylazy');
+	});
+
+	$imgs.lazyload({
+		effect: "fadeIn",
+		failure_limit: Math.max($imgs.length - 1, 0),
+		event: 'lazylazy'
+	});
+	//
+	////////////////////////////////////////////////////////////////////////////////////
+	// filter items on button click
+	$('.filters').on( 'click', 'button', function() {
+
+		var filterValue = $(this).attr('data-filter');
+		changeClasses( $(this) );
+
+		window.location.hash = filterValue;
+
+		isotopeFilter(filterValue);
+
+		$('html, body').animate({ scrollTop: 0 }, 'fast');
+	});
+	//
+	////////////////////////////////////////////////////////////////////////////////////
+	// Change classes of filter buttons
+	//
+	changeClasses = function (who) {
+		if ( $( who ).attr('id') == 'filter-showall') {
+			if ( $(who).hasClass('hidden')) {
+				$(who).removeClass('hidden');
+			} else {
+				$(who).addClass('hidden').delay(200).queue(function(next){
+					$(who).addClass('displayNone').dequeue();
+					});
+			}
+		} else {
+			$('#filter-showall').removeClass('hidden displayNone');
+		}
+		$('.filters button').removeClass('active');
+		$(who).addClass('active');
+	}
+	////////////////////////////////////////////////////////////////////////////////////
+	var colWidth = function () {
+		var w = $con.width(),
+			columnNum = 1,
+			columnWidth = 0;
+		if (w > 1500) {
+			columnNum  = 6;
+		} else if (w > 1200) {
+			columnNum  = 5;
+		} else if (w > 900) {
+			columnNum  = 4;
+		} else if (w > 600) {
+			columnNum  = 3;
+		} else if (w > 300) {
+			columnNum  = 2;
+		}
+		columnWidth = Math.floor(w/columnNum);
+		$con.find('.item').each(function() {
+			var $item = $(this),
+				multiplier_w = $item.attr('class').match(/item-w(\d)/),
+				multiplier_h = $item.attr('class').match(/item-h(\d)/),
+				width = multiplier_w ? columnWidth*multiplier_w[1] : columnWidth,
+				height = multiplier_h ? columnWidth*multiplier_h[1]*0.66666 : columnWidth*0.66666;
+			$item.css({
+				width: width,
+				height: height
+			});
+		});
+		return columnWidth;
+	};
+
+
+	isotope = function () {
+		$con.isotope({
+			itemSelector: '.item',
+			masonry: {
+				columnWidth: colWidth()
+			}
+		});
+	};
+	isotopeFilter = function(hash) {
+		console.log('isotope filter : ' + hash);
+		$con.isotope({ filter: hash });
+	}
+
+
+	hash = window.location.hash.substr(1);
+	isotope();
+	if (hash) {
+		console.log ('hash : ' + hash);
+		isotopeFilter(hash);
+
+		$('.filters').find('button').each(function() {
+			if ($(this).attr('data-filter') == hash) {
+				changeClasses( $(this) );
+			}
+		});
+
+
+	}
+
+	$win.on('debouncedresize', isotope);
+
+
+	$con.isotope('on', 'layoutComplete', function () {
+		loadVisible($imgs, 'lazylazy');
+	});
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// fade in random all items
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	function Shuffle(o) {
+		for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+		return o;
+	};
+
+	var portfolioFades = [];
+	$con.find('.item').each(function() { portfolioFades.push($(this)) });
+
+	Shuffle(portfolioFades);
+
+	for (var i=0;i < portfolioFades.length;i++) {
+		var $dly = i*50;
+		portfolioFades[i].delay($dly).queue(function(next){
+			$(this).addClass('loaded').dequeue();
+		});
+	}
+
+
+
+
+
+});
+
+jQuery(document).ready(function($){
+
+	// Target your .container, .wrapper, .post, etc.
+	$(".videoWrapper").fitVids();
+
+
+
+});
+
+jQuery(document).ready(function($){
+
+
+});
+

@@ -30,12 +30,12 @@ jQuery(document).ready(function($){
 
 		var filterValue = $(this).attr('data-filter');
 		changeClasses( $(this) );
-		
-		window.location.hash = filterValue.substr(1);
-		
-		$con.isotope({ filter: filterValue });
+
+		window.location.hash = filterValue;
+
+		isotopeFilter(filterValue);
+
 		$('html, body').animate({ scrollTop: 0 }, 'fast');
-		//isotope( );
 	});
 	//
 	////////////////////////////////////////////////////////////////////////////////////
@@ -87,44 +87,37 @@ jQuery(document).ready(function($){
 		return columnWidth;
 	};
 
-	isotope = function (hash) {
-		if (!hash) {
-			hash = '*';
-			//console.log ('NO hash found, isotope ALL');
-		}
+
+	isotope = function () {
 		$con.isotope({
 			itemSelector: '.item',
 			masonry: {
 				columnWidth: colWidth()
-			},
-			filter: hash
-		});
-	};
-
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// check after loading for a hash,
-	// if hash then filter isotope and set the filterNavigation to the right button, also show the 'Show all' button
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	if (window.location.hash) { // if hash then continue
-		var hash = '.' + document.URL.substr(document.URL.indexOf('#')+1);	// hash check, add point
-		console.log( 'hash filter : ' + hash );
-
-		$('.filters button').each(function() {		// check all filters for the samen filter as the hash
-			if ( $(this).attr('data-filter') == hash ) {
-				changeClasses( $(this) );	// change classes of the filter buttons
 			}
 		});
-		isotope( hash );	// NOW isotope with the hash
-		//console.log ('Filter found using ' + hash);
-
-	} else {
-		isotope();		// NO hash is found so show without filter
-		//console.log ('NO filter found using *');
+	};
+	isotopeFilter = function(hash) {
+		console.log('isotope filter : ' + hash);
+		$con.isotope({ filter: hash });
 	}
 
 
-	$(window).on('debouncedresize', isotope);
+	hash = window.location.hash.substr(1);
+	isotope();
+	if (hash) {
+		console.log ('hash : ' + hash);
+		isotopeFilter(hash);
+
+		$('.filters').find('button').each(function() {
+			if ($(this).attr('data-filter') == hash) {
+				changeClasses( $(this) );
+			}
+		});
+
+
+	}
+
+	$win.on('debouncedresize', isotope);
 
 
 	$con.isotope('on', 'layoutComplete', function () {

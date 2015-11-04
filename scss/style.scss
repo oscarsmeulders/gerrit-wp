@@ -20,30 +20,64 @@ extends
 }
 
 %navigation-sub {
-	position: fixed;
+	position: absolute;
 	left: 0;
 	width: 100%;
+	float:left;
 
 	height: $filter-S;
 	padding-top: 20px;
 	padding-left: $padding-S;
-	padding-right: $padding-S;
+	padding-right: 0;
 	top: $header-S;
 	@include MQ(M) {
 		height: $filter-M;
 		padding-top: 20px;
 		padding-left: $padding-M;
-		padding-right: $padding-M;
 		top: $header-M;
 	}
 	@include MQ(L) {
 		height: $filter-L;
 		padding-top: 20px;
 		padding-left: $padding-L;
-		padding-right: $padding-L;
 		top: $header-L;
 	}
+	.post-nav {
+		top:0px;
+		right:0px;
+		position: absolute;
+		float:right;
+		.post-button {
+			@include transition(background-color 0.2s ease-in, color 0.2s ease-in);
+			@extend %cursor-pointer;
+			@include selection($color-home-button-txt, $color-home-button);
+			background-color: $color-detail-button-bg;
+			border: none;
+			text-transform: uppercase;
+			color: $main-text;
+			font-size: em(17);
+			float:right;
 
+			width: $menu-button-width-S / 2;
+			height: $filter-S;
+			@include MQ(M) {
+				width: $menu-button-width-M / 2;
+				height: $filter-M;
+			}
+			@include MQ(L) {
+				width: $menu-button-width-L / 2;
+				height: $filter-L;
+			}
+
+			&:focus {
+				outline:0;
+			}
+			&:hover {
+				background-color: $color-detail-button-bg-hover;
+			}
+
+		}
+	}
 
 	z-index: 9999;
 	background-color: $color-filters;
@@ -132,7 +166,12 @@ body {
 
 a {
 	color: $link;
-	text-decoration: none;
+	text-decoration: underline;
+	@include transition(color 0.2s ease-in);
+	&:hover {
+		color: $link-active;
+		text-decoration: none;
+	}
 }
 p {
 	margin-bottom: 20px;
@@ -174,7 +213,6 @@ h6, .h6 {
 }
 /* end headings */
 
-
 .cd-wrapper {
 	ul, ol {
 		list-style: disc;
@@ -183,11 +221,11 @@ h6, .h6 {
 		li {
 			margin-bottom: 10px;
 		}
-	}	
+	}
 }
 
 hr {
-	display: block; 
+	display: block;
 	height: 1px;
     border: 0;
     border-top: 1px solid $main-text;
@@ -198,12 +236,58 @@ strong {
 	font-weight: 700;
 }
 /* --------------------------------
+table
+-------------------------------- */
+table {
+	tr {
+		width: 100%;
+		float: left;
+		@include MQ(M) {
+			width: 50%;
+		}
+	}
+	th, td {
+		//display: table-cell;
+		padding-bottom: 10px;
+		//background-color: rgba(#ff00ff, 0.2);
+		vertical-align: top;
+		white-space: normal;
+		&:first-child {
+			width: auto;
+			min-width: 100px;
+			font-size: em(15);
+			padding-right: 10px;
+			text-align: left;
+			//background-color: rgba(#ffff00, 0.2);
+		}
+	}
+}
+/* --------------------------------
+buttons
+-------------------------------- */
+.button-next, .button-previous, .button-zoom, .button-info {
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+.button-next {
+	background-image: url('../img/arrow-left.svg');
+}
+.button-previous {
+	background-image: url('../img/arrow-right.svg');
+}
+.button-zoom {
+	background-image: url('../img/button-zoom.svg');
+}
+.button-info {
+	background-image: url('../img/button-info.svg');
+}
+/* --------------------------------
 containers
 -------------------------------- */
 .cd-wrapper {
 	.cd-container {
 		@include column(1, left);
-		
+
 		padding-left: $padding-S;
 		padding-right: $padding-S;
 		@include MQ(M) {
@@ -228,7 +312,7 @@ containers
 			}
 		}
 	}
-	
+
 }
 
 /* --------------------------------
@@ -315,15 +399,19 @@ home
 content
 -------------------------------- */
 
-#content {
+#content, #contact {
 	.cd-main-content, .cd-main-content-fixed {
 		//@extend %paddings-with-sub;
 		//@extend %paddings-with-sub-no-padding;
-		
+
 		height:100%;
 		width: 50%;
 	}
+	.cd-main-content {
+		z-index: $content-zindex;
+	}
 	.cd-main-content-fixed {
+		z-index: $content-fixed-zindex;
 		position: fixed;
 		left:auto;
 		right:0;
@@ -333,7 +421,7 @@ content
 	div.title {
 		@extend %navigation-sub;
 		@include userSelect();
-	} 
+	}
 	&.divide-two .panel {
 		height:100%;
 		width: 100%;
@@ -351,6 +439,13 @@ content
 			background-position: center center;
 			background-repeat: no-repeat;
 			background-size: cover;
+			.slideshow {
+				width: 100%;
+				height: 100%;
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
 		}
 	}
 	&.right {
@@ -362,19 +457,28 @@ content
 			bottom: 0;
 		}
 		.cd-main-content {
-float:right		}
+			float:right
+		}
+	}
+}
+#contact {
+	.cd-main-content-fixed {
+		width: 100%;
+	}
+	.cd-main-content {
+		background: transparent;
 	}
 }
 /* --------------------------------
-detail - photography
+detail - photography, detail - video
 -------------------------------- */
-#detail-photography {
+#detail-photography, #detail-video {
 	.cd-main-content {
 		//@extend %paddings-with-sub;
 		@extend %paddings-with-sub-no-padding;
 		height: 100%;
 	}
-	div.cookietrail {
+	div.cookietrail, div.title {
 		@extend %navigation-sub;
 		@include userSelect();
 	}
@@ -382,7 +486,7 @@ detail - photography
 		top:0px;
 		width: 100%;
 		height: 100%;
-		z-index: 4;
+		z-index: $content-zindex;
 		.flickity-viewport {
 			width: 100%; /* full width */
 			height: 100%;
@@ -408,14 +512,14 @@ detail - photography
 	}
 	.gallery-buttons {
 		position: absolute;
-		top: 0px;		
+		top: 0px;
 		width: 100%;
 		height: 100%;
 		z-index: 5;
 
 	}
 	.gallery-button {
-		//z-index: 5;
+		z-index: $content-nav-zindex;
 		@include transition(background-color 0.2s ease-in, color 0.2s ease-in);
 		@extend %cursor-pointer;
 		@include selection($color-home-button-txt, $color-home-button);
@@ -424,17 +528,17 @@ detail - photography
 		text-transform: uppercase;
 		color: $main-text;
 		font-size: em(17);
-		
+
 		width: $button-detail-S;
 		height: $button-detail-S;
-		
+
 		margin: auto;
 		position: absolute;
 		@extend %top-with-sub-no-padding;
 		left: 0;
 		bottom: 0;
 		right: auto;
-  
+
 		&:focus {
 			outline:0;
 		}
@@ -456,9 +560,61 @@ detail - photography
 			bottom: 240px;
 		}
 	}
+	.video {
+		top:0px;
+		width: 100%;
+		z-index: $content-zindex;
+
+		div.videoContainer {
+			text-align: center;
+			width: 100%;
+			margin: auto;
+			padding-left: $padding-S;
+			padding-right: $padding-S;
+			@include MQ(M) {
+				padding-left: $padding-M;
+				padding-right: $padding-M;
+			}
+			@include MQ(L) {
+				padding-left: $padding-L;
+				padding-right: $padding-L;
+			}
+			@include MQ(XL) {
+				padding-left: $padding-L;
+				padding-right: $padding-L;
+				width: 80%;
+			}
+			.videoWrapper {
+				position: relative;
+
+				margin-bottom: $padding-S;
+				padding-top: $padding-S;
+				@include MQ(M) {
+					margin-bottom: $padding-M;
+					padding-top: $padding-M;
+				}
+				@include MQ(L) {
+					margin-bottom: $padding-L;
+					padding-top: $padding-L;
+				}
+
+				padding-bottom: 56.25%;
+				height: 0;
+				overflow: hidden;
+			}
+			.videoWrapper iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		}
+	}
 	.content {
 
 	}
+
 }
 
 /* --------------------------------
@@ -482,7 +638,7 @@ portfolio - photography
 			padding: 0;
 			margin: 0;
 			margin-right: 20px;
-	
+
 			&:focus {
 				outline:0;
 			}

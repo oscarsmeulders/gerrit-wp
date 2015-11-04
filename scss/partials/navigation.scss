@@ -147,7 +147,7 @@ header {
 	right: 0;
 	top: 0;
 	height: 100%;
-	width: 50px;
+	width: $menu-button-width-S;
 	background-color: $color-menu;
 	@include userSelect();
 
@@ -264,6 +264,7 @@ header {
 		padding: 0 16px 0 32px;
 		color: $main-text;
 		text-transform: uppercase;
+		text-decoration: none;
 		@include transition(color 0.2s ease-in);
 		@extend %cursor-pointer;
 		&.current {
@@ -273,7 +274,9 @@ header {
 			color: $link-active;
 		}
 	}
-
+	.current a {
+		color: $color-menu-txt-current;
+	}
 	@include MQ(M) {
 		.cd-navigation {
 			margin: 20px 0;
@@ -336,7 +339,7 @@ header {
 		@include border-radius(16px);
 		@include transition(background-color 0.2s ease-in);
 		@extend %cursor-pointer;
-		
+
 		&.cd-twitter {
 			background-position: 0 0;
 		}

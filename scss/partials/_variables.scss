@@ -27,15 +27,18 @@ $primary-font: 'news-gothic-std', sans-serif;
 
 // z-index
 $secondary-nav: 1;
-$content-zindex: 2;
-$header-zindex: 3;
+$header-zindex: 6;
+
+$content-zindex: 5;
+$content-fixed-zindex: 4;
+$content-nav-zindex: 9;
 
 // heights && paddings
 $header-S: 50px;
 $header-M: 100px;
 $header-L: 100px;
 
-$padding-S: 20px;
+$padding-S: 10px;
 $padding-M: 30px;
 $padding-L: 40px;
 
@@ -49,7 +52,9 @@ $button-detail-L: 60px;
 
 // menu
 $menu-width: 300px;
-
+$menu-button-width-S: 50px;
+$menu-button-width-M: 150px;
+$menu-button-width-L: 150px;
 
 
 //$detail-gallery-height-large: (min-height 1000px) (orientation portrait);
